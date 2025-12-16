@@ -63,3 +63,4 @@ builddir/
 # Compile commands symbolic link
 compile_commands.json
 subprojects/munit
+docs/
