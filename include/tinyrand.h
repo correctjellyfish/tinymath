@@ -4,10 +4,32 @@
 #include <stdint.h>
 
 /*!
+ * A Random Number Generator using the Xoshiro256 generator */
+typedef struct {
+  uint64_t state[4];
+} tinyrand_rng;
+
+/*!
+ * Create an empty RNG object
+ *
+ * @returns Empty RNG (state is empty, so must be seeded)
+ * */
+tinyrand_rng new_rng(void);
+
+/*!
+ * Create a new seeded RNG object
+ *
+ * @param seed Number to use for seeding the RNG
+ *
+ * @returns A seeded RNG
+ * */
+tinyrand_rng new_rng_seeded(uint64_t seed);
+
+/*!
  * Seed the random number generator
  *
  * @param seed 64-bit integer seed */
-void tinyrand_seed(uint64_t seed);
+void tinyrand_seed(tinyrand_rng *rng, uint64_t seed);
 
 /*!
  * Generate a random 64-bit integer
@@ -16,7 +38,7 @@ void tinyrand_seed(uint64_t seed);
  * 64-bit integer
  *
  * @returns Random integer*/
-uint64_t tinyrand_next_int(void);
+uint64_t tinyrand_next_uint64(tinyrand_rng *rng);
 
 /*!
  * Generate a random double
@@ -25,6 +47,6 @@ uint64_t tinyrand_next_int(void);
  * in the range [0,1]
  *
  * @returns Random double in range [0,1]*/
-double tinyrand_next_double(void);
+double tinyrand_next_double(tinyrand_rng *rng);
 
 #endif
