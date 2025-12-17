@@ -25,8 +25,8 @@ static MunitResult test_seed(const MunitParameter params[], void *data) {
   tinyrand_test_data *test_data = (tinyrand_test_data *)data;
 
   // Create two seeded RNGs
-  tinyrand_rng rng1 = tinyrand_new_rng_seeded(test_data->seed);
-  tinyrand_rng rng2 = tinyrand_new_rng_seeded(test_data->seed);
+  TinyrandRng rng1 = tinyrand_new_rng_seeded(test_data->seed);
+  TinyrandRng rng2 = tinyrand_new_rng_seeded(test_data->seed);
 
   // Test that the first returned random number is the same between the 2
   munit_assert_uint64(tinyrand_next_uint64(&rng1), ==,
@@ -39,7 +39,7 @@ static MunitResult test_seed(const MunitParameter params[], void *data) {
 static MunitResult test_gen_uint64(const MunitParameter params[], void *data) {
   tinyrand_test_data *test_data = (tinyrand_test_data *)data;
 
-  tinyrand_rng test_rng = tinyrand_new_rng_seeded(test_data->seed);
+  TinyrandRng test_rng = tinyrand_new_rng_seeded(test_data->seed);
 
   uint64_t first_rand_num = tinyrand_next_uint64(&test_rng);
   uint64_t second_rand_num = tinyrand_next_uint64(&test_rng);
@@ -53,7 +53,7 @@ static MunitResult test_gen_uint64(const MunitParameter params[], void *data) {
 static MunitResult test_gen_double(const MunitParameter params[], void *data) {
   tinyrand_test_data *test_data = (tinyrand_test_data *)data;
 
-  tinyrand_rng test_rng = tinyrand_new_rng_seeded(test_data->seed);
+  TinyrandRng test_rng = tinyrand_new_rng_seeded(test_data->seed);
 
   double first_rand_num = tinyrand_next_double(&test_rng);
   double second_rand_num = tinyrand_next_double(&test_rng);

@@ -21,7 +21,7 @@ static inline uint64_t rol64(uint64_t x, int k) {
 }
 
 // Use splitmix to set the seed state of the xorshiro generator
-void tinyrand_seed(tinyrand_rng *rng, uint64_t seed) {
+void tinyrand_seed(TinyrandRng *rng, uint64_t seed) {
   splitmix_state = seed;
 
   for (int i = 0; i < 4; i++) {
@@ -30,7 +30,7 @@ void tinyrand_seed(tinyrand_rng *rng, uint64_t seed) {
 }
 
 // Generate an int value
-uint64_t tinyrand_next_uint64(tinyrand_rng *rng) {
+uint64_t tinyrand_next_uint64(TinyrandRng *rng) {
   uint64_t *state = rng->state;
   const uint64_t result = rol64(state[1] * 5, 7) * 9;
 
@@ -49,7 +49,7 @@ uint64_t tinyrand_next_uint64(tinyrand_rng *rng) {
 }
 
 // Generate a floating point value
-double tinyrand_next_double(tinyrand_rng *rng) {
+double tinyrand_next_double(TinyrandRng *rng) {
   // NOTE:The random integer is first shifted 11 bits,
   // since double hold 53 bits of precision (actually
   // only holding 52 of the numbers since the last
@@ -64,14 +64,14 @@ double tinyrand_next_double(tinyrand_rng *rng) {
 }
 
 // Create a new empty RNG struct
-tinyrand_rng tinyrand_new_rng(void) {
-  tinyrand_rng new_rng = {.state = {0, 0, 0, 0}};
+TinyrandRng tinyrand_new_rng(void) {
+  TinyrandRng new_rng = {.state = {0, 0, 0, 0}};
   return new_rng;
 };
 
 // Create a new seeded RNG struct
-tinyrand_rng tinyrand_new_rng_seeded(uint64_t seed) {
-  tinyrand_rng new_rng = {.state = {0, 0, 0, 0}};
+TinyrandRng tinyrand_new_rng_seeded(uint64_t seed) {
+  TinyrandRng new_rng = {.state = {0, 0, 0, 0}};
   tinyrand_seed(&new_rng, seed);
 
   return new_rng;
